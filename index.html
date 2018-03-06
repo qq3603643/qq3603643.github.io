@@ -64,6 +64,16 @@
              body: text,
              icon: 'http://img2.imgtn.bdimg.com/it/u=1402851457,1538109247&fm=27&gp=0.jpg',
            });
+
+           notification.onclose = (e) => {
+             console.log('close', e);
+           };
+           notification.onclick = (e) => {
+             console.log('click', e);
+           	 notification.close();
+           };
+
+           /** 调用实例close方法 触发onclose **/
        	 } else {
            alert('Click to requestPermission');
        	 }
