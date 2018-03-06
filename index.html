@@ -3,13 +3,74 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<title>github pages</title>
+<title>Notification-demo</title>
 <meta name="description" content="">
 <meta name="keywords" content="">
 <link href="" rel="stylesheet">
 </head>
 <body>
-   <h2>HELLO WORLD,</h2>
-   <p>I am tangerine.</p>
+   <header>
+     <h2>Notification Demo</h2>
+   </header>
+
+   <section>
+     <p>
+       current permission:
+       <em id="JS-permissionStatus">NOT SUPPORT</em>
+     </p>
+     <p>
+       <button id="JS-btn">Click to requestPermission</button>
+     </p>
+     <form>
+      <input type="text" name="input" id="JS-input">
+      <button id="JS-notify">Click to notify</button>
+     </form>
+   </section>
+
+   <script type="text/javascript">
+     void function(root) {
+       if (!root.Notification) {
+         return;
+       }
+
+       const { Notification } = root;
+       const oBtn = document.querySelector('#JS-btn');
+       const oLabel = document.querySelector('#JS-permissionStatus');
+       const setText = (el, text) => {
+         el.innerHTML = text;
+       };
+
+       setText(oLabel, Notification.permission);
+
+       oBtn.addEventListener('click', async (e) => {
+       	const permission = await Notification.requestPermission();
+
+       	setText(oLabel, permission);
+       } ,false);
+
+       const oIpt = document.querySelector('#JS-input');
+       const oShowBtn = document.querySelector('#JS-notify');
+
+       oShowBtn.addEventListener('click', (e) => {
+       	 const text = oIpt.value.replace(/^\s*|\s*$/g, '');
+       	 if (!text) {
+           alert('Context is empty');
+
+           return;
+       	 }
+       	 console.log(Notification.permission);
+       	 if (Notification.permission == 'granted') {
+           const notification = new Notification('notification demo', {
+             body: text,
+             icon: 'http://img2.imgtn.bdimg.com/it/u=1402851457,1538109247&fm=27&gp=0.jpg',
+           });
+       	 } else {
+           alert('Click to requestPermission');
+       	 }
+
+         e.preventDefault();
+       }, false);
+     }(window);
+   </script>
 </body>
 </html>
