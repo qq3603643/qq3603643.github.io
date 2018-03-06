@@ -65,11 +65,11 @@
              icon: 'http://img2.imgtn.bdimg.com/it/u=1402851457,1538109247&fm=27&gp=0.jpg',
            });
 
-           notification.onclose = (e) => {
-             console.log('close', e);
+           notification.onclose = (ev) => {
+             console.log('close', ev);
            };
-           notification.onclick = (e) => {
-             console.log('click', e);
+           notification.onclick = (ev) => {
+             console.log('click', ev);
            	 notification.close();
            };
 
